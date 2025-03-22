@@ -1,11 +1,4 @@
 <h2>{{titre}}</h2>
-<a routerLink="/add">
-    <button mat-flat-button 
-            color="accent"
-    >
-        Ajouter un devoir
-   </button>
-</a>
 
 <h3>Ici en liste</h3>
 <p>Nombre total d'assignments dans la base : {{totalDocs}}</p>
@@ -19,24 +12,24 @@
 <p>Page courante : {{page}}</p>
 <p>Nombre total de pages : {{totalPages}}</p>
 <p>
-    <button mat-flat-button 
+    <button mat-flat-button
         color="primary"
         (click)="premierePage()">
     PREMIERE
     </button>
-    <button mat-flat-button 
+    <button mat-flat-button
             color="primary"
             [disabled]="page === 1"
             (click)="pagePrecedente()">
      PAGE PRECEDENTE
     </button>
-    <button mat-flat-button 
+    <button mat-flat-button
             color="primary"
             [disabled]="page === totalPages"
             (click)="pageSuivante()">
      PAGE SUIVANTE
     </button>
-    <button mat-flat-button 
+    <button mat-flat-button
             color="primary"
             (click)="dernierePage()">
      DERNIERE
@@ -57,26 +50,26 @@
       <th mat-header-cell *matHeaderCellDef> Nom </th>
       <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="dateDeRendu">
       <th mat-header-cell *matHeaderCellDef> Date de rendu </th>
       <td mat-cell *matCellDef="let element"> {{element.dateDeRendu|date:'dd/M/YYYY'}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="rendu">
       <th mat-header-cell *matHeaderCellDef> rendu </th>
       <td mat-cell *matCellDef="let element"> {{element.rendu}} </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="afficheDetail(row)">
 
     </tr>
-    
+
   </table>
-  
-  
-  
+
+
+
 <!--
 
 
@@ -85,7 +78,7 @@
         @for(a of assignments; track a._id) {
             <nav>
                 <a routerLink="/assignments/{{a._id}}">
-                    <h3 mat-sub-header>{{a.dateDeRendu | date:'d/M/YY'}}</h3>   
+                    <h3 mat-sub-header>{{a.dateDeRendu | date:'d/M/YY'}}</h3>
                     <div>
                         @if(a.rendu) {
                             <mat-list-item appRendu>

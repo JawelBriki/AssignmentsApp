@@ -1,0 +1,26 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar {
+  background-color: lightblue;
+}
+
+mat-sidenav-container {
+  height: 100vh;
+}
+
+mat-sidenav {
+  background-color: powderblue;
+}
+
+mat-list-item a {
+  text-decoration: none;
+  font-size: large;
+}
+
+.toolbar-greeting {
+  margin-right: 16px;
+  color: mediumblue;
+  font-weight: 500;
+}

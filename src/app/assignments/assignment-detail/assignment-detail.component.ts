@@ -7,10 +7,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../shared/auth.service';
+import {distinct} from 'rxjs';
 
 @Component({
   selector: 'app-assignment-detail',
-  imports: [MatCardModule, CommonModule, MatButtonModule, 
+  imports: [MatCardModule, CommonModule, MatButtonModule,
     MatCheckboxModule, RouterLink],
   templateUrl: './assignment-detail.component.html',
   styleUrl: './assignment-detail.component.css'
@@ -22,9 +24,10 @@ export class AssignmentDetailComponent implements OnInit{
   @Input()
   assignmentTransmis?:Assignment;
 
-  constructor(private assignmentsService:AssignmentsService, 
+  constructor(private assignmentsService:AssignmentsService,
     private route:ActivatedRoute,
-    private router:Router) {}
+    private router:Router,
+    private authService: AuthService) {}
 
   ngOnInit(): void {
     // appelée quand le composant est instancié
@@ -38,13 +41,17 @@ export class AssignmentDetailComponent implements OnInit{
       // etc.
     }
 
-    // Exemple de récupération du fragment d'URL 
+    // Exemple de récupération du fragment d'URL
     // (il ne peut y en avoir qu'un). Le fragment est la partie
     // de l'URL qui suit le #. Par ex : http://localhost:4200/assignment/1#top
     let fragment = this.route.snapshot.fragment;
     console.log(fragment);
 
     this.getAssignment();
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
   }
 
   getAssignment(): void {
@@ -77,7 +84,7 @@ export class AssignmentDetailComponent implements OnInit{
 
   onDeleteAssignment() {
     if(!this.assignmentTransmis) return;
-    
+
     // On utilise le service pour supprimer l'assignment
     this.assignmentsService.deleteAssignment(this.assignmentTransmis)
     .subscribe(message => {
@@ -90,4 +97,5 @@ export class AssignmentDetailComponent implements OnInit{
     });
   }
 
+  protected readonly distinct = distinct;
 }

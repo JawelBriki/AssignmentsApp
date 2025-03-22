@@ -1,13 +1,26 @@
-<h1>
-  <nav>
-    <a routerLink="/home">{{titre}}</a>
-  </nav>
-</h1>
-<button mat-raised-button color="primary" (click)="genererDonneesDeTest()">
-  PEUPLER BD AVEC DONNEES DE TEST
-</button>
-<!-- On va afficher le composant correspondant 
-     à la route active
--->
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
+  {{titre}}
+  <span class="spacer"></span>
+  @if (authService.isLoggedIn()) {
+    <span class="toolbar-greeting">Hello, {{ authService.getCurrentUser()?.username }}!</span>
+    <button mat-flat-button (click)="logout()">Log out</button>
+  } @else {
+    <button mat-flat-button (click)="openLoginDialog()">Log in</button>
+  }
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="opened">
+    <mat-list>
+      <mat-list-item><button mat-button><mat-icon>home</mat-icon><a routerLink="/home">Home</a></button></mat-list-item>
+      <mat-list-item><button mat-button><mat-icon>add_circle</mat-icon><a routerLink="/add">Add Assignment</a></button></mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item><button mat-button (click)="genererDonneesDeTest()">Generate Test Data</button></mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
