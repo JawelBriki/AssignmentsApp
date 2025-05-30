@@ -3,23 +3,23 @@ import { Assignment } from '../assignments/assignment.model';
 import { forkJoin, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { bdInitialAssignments } from './data';
+import { dbAssignments } from './data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssignmentsService {
-  //backendURL = 'http://localhost:8010/api/assignments';
-  backendURL = 'https://angularbackm2mbdsesatic2024-2025.onrender.com/api/assignments';
+  backendURL = 'http://localhost:8010/api/assignments';
+  //backendURL = 'https://angularbackm2mbdsesatic2024-2025.onrender.com/api/assignments';
 
 
 assignments:Assignment[] = [];
-  
+
   constructor(private http:HttpClient) { }
 
   getAssignmentsPagines(page:number, limit:number):Observable<any> {
     console.log("Service:getAssignments appelée !");
-    
+
     // On utilise la methode get du service HttpClient
     // pour récupérer les données depuis le backend
     const URI = this.backendURL + '?page=' + page + '&limit=' + limit;
@@ -52,42 +52,27 @@ assignments:Assignment[] = [];
     return this.http.delete<string>(this.backendURL + '/' + assignment._id);
   }
 
-  // Pour la génération de données de test
-  peuplerBD() {
-    bdInitialAssignments.forEach(a => {
-      // on va construire un nouvel assignment
-      let nouvelAssignment = new Assignment();
-      nouvelAssignment.nom = a.nom;
-      nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
-      nouvelAssignment.rendu = a.rendu;
-
-      // J'appelle le service d'insertion d'un assignment
-      // et je l'insère dans la base de données via le 
-      // backend
-      this.addAssignment(nouvelAssignment)
-      .subscribe(message => {
-        console.log(message);
-      });
-    });
-  }
-
-  // VERSION AMELIOREE QUI RENVOIE UN OBSERVABLE ! Et qui permet donc
-  // de savoir quand toutes les insertions sont terminées
+  // version améliorée
   peuplerBDavecForkJoin():Observable<any> {
     let appelsVersAddAssignment:Observable<any>[] = [];
- 
-    bdInitialAssignments.forEach(a => {
-      const nouvelAssignment = new Assignment();
-      nouvelAssignment.nom = a.nom;
-      nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
-      nouvelAssignment.rendu = a.rendu;
- 
-      appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment))
+
+    dbAssignments.forEach(a => {
+      const assignment = new Assignment();
+      assignment._id = a.id;
+      assignment.author = a.author;
+      assignment.subject = a.subject;
+      if (a.grade) assignment.grade = a.grade;
+      assignment.nom = a.nom;
+      assignment.dateDeRendu = new Date(a.dateDeRendu);
+      assignment.rendu = a.rendu;
+      if (a.remarks) assignment.remarks = a.remarks;
+
+      appelsVersAddAssignment.push(this.addAssignment(assignment))
     });
- 
+
     // On renvoie un observable qui va nous permettre de savoir
     // quand toutes les insertions sont terminées
     return forkJoin(appelsVersAddAssignment);
   }
- 
+
 }

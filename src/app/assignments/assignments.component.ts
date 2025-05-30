@@ -29,17 +29,17 @@ import { Router, RouterLink } from '@angular/router';
 export class AssignmentsComponent implements OnInit {
   titre = 'Liste des assignments';
   assignments: Assignment[] = [];
-  
+
   // Pour la pagination
   page = 1;
-  limit = 4;
-  totalDocs = 2000;
-  totalPages = 667;
-  pagingCounter = 1;
-  hasPrevPage = false;
-  hasNextPage = true;
-  prevPage = null;
-  nextPage = 2;
+  limit = 10;
+  totalDocs!:number;
+  totalPages!:number;
+  pagingCounter!:number;
+  hasPrevPage!:boolean;
+  hasNextPage!:boolean;
+  prevPage!:number;
+  nextPage!:number;
   // Pour la data table angular
   displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
 
