@@ -9,8 +9,8 @@ import { dbAssignments } from './data';
   providedIn: 'root'
 })
 export class AssignmentsService {
-  backendURL = 'http://localhost:8010/api/assignments';
-  //backendURL = 'https://angularbackm2mbdsesatic2024-2025.onrender.com/api/assignments';
+  //backendURL = 'http://localhost:8010/api/assignments';
+  backendURL = 'https://jawelbriki-assignmentsapi.onrender.com/api/assignments';
 
 
 assignments:Assignment[] = [];
