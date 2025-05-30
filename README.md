@@ -1,7 +1,7 @@
 # AssignmentApp
 
-LOGINS TO TEST THE APP AND PERMISSIONS:  
-user: test / password: test (no admin perms)  
+ACCOUNTS TO TEST THE APP AND PERMISSIONS:
+user: test / password: test (no admin perms)
 user: admin / password: admin (admin perms)
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
