@@ -1,6 +1,5 @@
-import {Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { delay, map, catchError } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 interface User {
   username: string;
@@ -12,35 +11,61 @@ interface User {
   providedIn: 'root',
 })
 export class AuthService {
+  //private backendURL = "http://localhost:8010/api/auth"
+  private backendURL = 'https://jawelbriki-authapi.onrender.com/api/auth';
   private currentUser: User | null = null;
 
-  private users: User[] = [
-    {username: 'test', password: 'test', admin: false},
-    {username: 'admin', password: 'admin', admin: true}
-  ]
+  constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): boolean {
-    let user = this.users.find(user => user.username === username && user.password === password);
-    if (!!user) {
-      this.currentUser = user;
-      return true;
-    } else {
-      console.log("Authentication failed. Check username and/or password.");
-      return false;
-    }
+  register(username: string, password: string): Promise<boolean> {
+    const registerData = { username, password };
+    const URI = this.backendURL + "/register";
+
+    return new Promise((resolve, reject) => {
+      this.http.post<User>(URI, registerData).subscribe({
+        next: (user) => {
+          this.currentUser = user;
+          console.log('Registration successful:', user);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Registration failed:', error);
+          resolve(false);
+        },
+      });
+    });
+  }
+
+  login(username: string, password: string): Promise<boolean> {
+    const loginData = { username, password };
+    const URI = this.backendURL + "/login";
+
+    return new Promise((resolve, reject) => {
+      this.http.post<User>(URI, loginData).subscribe({
+        next: (user) => {
+          this.currentUser = user;
+          console.log('Login successful:', user);
+          resolve(true);
+        },
+        error: (error) => {
+          console.error('Login failed:', error);
+          resolve(false);
+        },
+      });
+    });
   }
 
   logout(): void {
     this.currentUser = null;
+    // Optionnel : envoyer une requête au backend pour gérer la déconnexion
   }
 
   isLoggedIn(): boolean {
     return !!this.currentUser;
   }
 
-  isAdmin() {
-    // @ts-ignore
-    return this.isLoggedIn() ? this.currentUser.admin : false;
+  isAdmin(): boolean {
+    return this.isLoggedIn() ? this.currentUser!.admin : false;
   }
 
   getCurrentUser(): User | null {

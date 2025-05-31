@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Log in</h1>
+<h1 mat-dialog-title>{{ title }}</h1>
 <div mat-dialog-content>
   <mat-form-field>
     <input matInput placeholder="Username" [(ngModel)]="username">
@@ -6,8 +6,11 @@
   <mat-form-field>
     <input matInput placeholder="Password" type="password" [(ngModel)]="password">
   </mat-form-field>
+  <p *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button mat-button [mat-dialog-close]="{ username: username, password: password }">Log in</button>
+  <button mat-button [mat-dialog-close]="{ username: username, password: password }">{{ title }}</button>
 </div>

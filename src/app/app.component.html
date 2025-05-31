@@ -4,9 +4,10 @@
   <span class="spacer"></span>
   @if (authService.isLoggedIn()) {
     <span class="toolbar-greeting">Hello, {{ authService.getCurrentUser()?.username }}!</span>
-    <button mat-flat-button (click)="logout()">Log out</button>
+    <button mat-flat-button (click)="onLogout()">Log out</button>
   } @else {
-    <button mat-flat-button (click)="openLoginDialog()">Log in</button>
+    <button mat-flat-button style="margin-right: 10px;" (click)="openLoginDialog(false)">Log in</button>
+    <button mat-flat-button (click)="openLoginDialog(true)">Register</button>
   }
 </mat-toolbar>
 

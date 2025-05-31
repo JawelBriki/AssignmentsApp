@@ -29,24 +29,38 @@ export class AppComponent {
               protected authService: AuthService,
               private router: Router) {}
 
-  openLoginDialog() {
+  openLoginDialog(isRegister: boolean, errorMessage: string | null = null) {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '250px',
+      data: { isRegister, errorMessage }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(async (result) => {
       console.log('The dialog was closed', result);
       if (result) {
-        if (this.authService.login(result.username, result.password)) {
-          this.router.navigate(['/home']);
-        } else {
-          this.openLoginDialog();
+
+        if (!isRegister) {
+          let loginAttempt = await this.authService.login(result.username, result.password);
+          if (loginAttempt) {
+            this.router.navigate(['/home']);
+          } else {
+            this.openLoginDialog(false, "Login failed. Please check your credentials.");
+          }
+        }
+
+        else {
+          let registerAttempt = await this.authService.register(result.username, result.password);
+          if (registerAttempt) {
+            this.router.navigate(['/home']);
+          } else {
+            this.openLoginDialog(true, "Username already exists.");
+          }
         }
       }
-    })
+    });
   }
 
-  logout(): void {
+  onLogout(): void {
     this.authService.logout();
     this.router.navigate(['/home']);
   }
