@@ -2,9 +2,9 @@ export class Assignment {
     _id!:number;
     author!:string;
     subject!:string;
-    grade!:number;
+    grade!:number | null;
     dateDeRendu!:Date;
     nom!:string;
     rendu!:boolean;
-    remarks!:string;
+    remarks!:string | null;
 }
