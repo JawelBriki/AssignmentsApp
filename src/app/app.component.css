@@ -3,24 +3,84 @@
 }
 
 mat-toolbar {
-  background-color: lightblue;
+  background-color: var(--primary-color) !important; /* Use CSS variable */
+  color: white !important;
+  box-shadow: var(--box-shadow-md);
+  padding: 0 16px;
 }
 
+mat-toolbar .mat-mdc-button-base { /* Style buttons in toolbar */
+  color: white;
+  margin-left: 8px;
+}
+mat-toolbar .mat-mdc-button-base:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+
 mat-sidenav-container {
-  height: 100vh;
+  height: calc(100vh - 64px); /* Adjust height considering toolbar height */
+  background-color: var(--background-color); /* Use global background */
 }
 
 mat-sidenav {
-  background-color: powderblue;
+  background-color: var(--card-background-color); /* Sidenav with card-like background */
+  width: 260px;
+  border-right: 1px solid var(--border-color);
+  box-shadow: var(--box-shadow-sm);
+  padding-top: 10px;
 }
 
-mat-list-item a {
-  text-decoration: none;
-  font-size: large;
+mat-sidenav .mat-mdc-list-item .mdc-list-item__primary-text a,
+mat-sidenav .mat-mdc-button {
+  color: var(--text-color-primary);
+  font-family: var(--font-family-headings);
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  padding: 10px 16px;
+  border-radius: var(--border-radius);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+mat-sidenav .mat-mdc-list-item .mdc-list-item__primary-text a:hover, /* Targeting the anchor inside */
+mat-sidenav .mat-mdc-button:hover {
+  background-color: var(--primary-color-light);
+  color: var(--primary-color-dark);
+}
+mat-sidenav .mat-mdc-list-item .mdc-list-item__primary-text a mat-icon,
+mat-sidenav .mat-mdc-button mat-icon {
+  margin-right: 16px;
+  color: var(--primary-color);
+}
+
+mat-sidenav .mat-mdc-list-item .mdc-list-item__primary-text a:hover mat-icon,
+mat-sidenav .mat-mdc-button:hover mat-icon {
+  color: var(--primary-color-dark);
+}
+
+mat-divider {
+  border-top-color: var(--border-color);
+  margin: 8px 0;
 }
 
 .toolbar-greeting {
   margin-right: 16px;
-  color: mediumblue;
-  font-weight: 500;
+  color: var(--primary-color-light); /* Lighter text on primary background */
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Style login/register buttons specifically if needed */
+mat-toolbar button[mat-flat-button] {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: var(--primary-color) !important;
+  font-weight: 600;
+}
+mat-toolbar button[mat-flat-button]:hover {
+  background-color: white !important;
+  color: var(--primary-color-dark) !important;
 }

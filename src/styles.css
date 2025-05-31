@@ -1,4 +1,126 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 20; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root {
+  --primary-color: #2979FF;
+  --primary-color-dark: #1C54B2;
+  --primary-color-light: #E3F2FD;
+  --accent-color: #FFD600;
+  --text-color-primary: #212121;
+  --text-color-secondary: #757575;
+  --background-color: #f4f7f6;
+  --card-background-color: #ffffff;
+  --border-color: #e0e0e0;
+  --success-color: #4CAF50;
+  --danger-color: #F44336;
+  --warning-color: #FF9800;
+
+  --font-family-sans-serif: 'Roboto', "Helvetica Neue", sans-serif;
+  --font-family-headings: 'Nunito', "Helvetica Neue", sans-serif;
+
+  --box-shadow-sm: 0 2px 4px rgba(0,0,0,0.08);
+  --box-shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+  --border-radius: 6px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-family-sans-serif);
+  background-color: var(--background-color);
+  color: var(--text-color-primary);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-headings);
+  color: var(--primary-color-dark);
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.5rem; }
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--primary-color-dark);
+  text-decoration: underline;
+}
+
+
+.page-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mat-mdc-button-base {
+  border-radius: var(--border-radius) !important;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-flat-button.mat-primary {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+}
+.mat-mdc-raised-button.mat-primary:hover {
+  background-color: var(--primary-color-dark) !important;
+  box-shadow: var(--box-shadow-sm) !important;
+}
+
+.mat-mdc-raised-button.mat-accent,
+.mat-mdc-flat-button.mat-accent {
+  background-color: var(--accent-color) !important;
+  color: var(--text-color-primary) !important;
+}
+.mat-mdc-raised-button.mat-accent:hover {
+  background-color: #ffc107 !important; /* Darker yellow */
+  box-shadow: var(--box-shadow-sm) !important;
+}
+
+/* Style for mat-card to make it more lively */
+.mat-mdc-card {
+  background-color: var(--card-background-color) !important;
+  border-radius: var(--border-radius) !important;
+  box-shadow: var(--box-shadow-sm) !important;
+  transition: box-shadow 0.3s ease;
+}
+
+.mat-mdc-card:hover {
+  box-shadow: var(--box-shadow-md) !important;
+}
+
+.mat-mdc-card-title {
+  font-family: var(--font-family-headings) !important;
+  color: var(--primary-color-dark) !important;
+}
+.mat-mdc-card-subtitle {
+  color: var(--text-color-secondary) !important;
+}
+
+/* Form field theming */
+.mat-mdc-form-field .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: rgba(0, 0, 0, 0.03) !important; /* Lighter fill */
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: var(--primary-color) !important;
+}
+.mat-mdc-form-field.mat-focused .mdc-line-ripple::after {
+  border-bottom-color: var(--primary-color) !important;
+}

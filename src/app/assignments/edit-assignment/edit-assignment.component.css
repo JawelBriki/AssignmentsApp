@@ -1,6 +1,30 @@
-.form {
-    display:flex;
-    flex-direction: column;
-    margin:5px;
- }
- 
+/* General form container to make it look nicer and centered */
+.form-container {
+  max-width: 600px;
+  margin: 20px auto; /* Center the form */
+  padding: 24px;
+  background-color: var(--card-background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow-md);
+}
+
+.form-container h3 { /* Style the title within the form container */
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.form { /* Keep existing styles, or simplify if .form-container handles structure */
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adds space between form fields */
+}
+
+.mat-mdc-form-field {
+  width: 100%; /* Make form fields take full width of their container */
+}
+
+button[mat-raised-button] { /* Ensure primary button uses theme color */
+  margin-top: 16px;
+  /* The global styles in styles.css should handle the button colors */
+}

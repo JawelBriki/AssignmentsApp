@@ -1,10 +1,24 @@
 .containerBoutons {
-    display:flex;
-    /* Aligne children horizontalement */
-    justify-content: space-between;
-    /* alignés sur les extrémités */
-    
-    /* Espace entre les children */
-    margin: 10px;
-    
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0px 0px 0px; /* Adjusted margin */
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Additional styling for content within the card for better readability */
+mat-card-content p {
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
+mat-card-content p strong {
+  color: var(--primary-color-dark);
+  margin-right: 8px;
+}
+
+/* Ensure checkbox is styled well */
+.mat-mdc-checkbox .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background,
+.mat-mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate ~ .mdc-checkbox__background {
+  border-color: var(--primary-color) !important;
+  background-color: var(--primary-color) !important;
 }
