@@ -12,7 +12,7 @@ interface User {
 })
 export class AuthService {
   //private backendURL = "http://localhost:8010/api/auth"
-  private backendURL = 'https://jawelbriki-authapi.onrender.com/api/auth';
+  private backendURL = 'https://jawelbriki-assignmentsapi.onrender.com/api/auth';
   private currentUser: User | null = null;
 
   constructor(private http: HttpClient) {}
