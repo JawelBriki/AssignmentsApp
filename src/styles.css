@@ -61,34 +61,41 @@ a:hover {
   text-decoration: underline;
 }
 
-
+/* General container styling for content pages */
 .page-container {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.mat-mdc-button-base {
+/* Global button enhancements */
+.mat-mdc-button-base { /* General styling for all material buttons */
   border-radius: var(--border-radius) !important;
   transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
-.mat-mdc-raised-button.mat-primary,
-.mat-mdc-flat-button.mat-primary {
+/* Styles for ENABLED primary buttons */
+.mat-mdc-raised-button.mat-primary:not([disabled]),
+.mat-mdc-flat-button.mat-primary:not([disabled]) {
   background-color: var(--primary-color) !important;
   color: white !important;
 }
-.mat-mdc-raised-button.mat-primary:hover {
+
+.mat-mdc-raised-button.mat-primary:not([disabled]):hover,
+.mat-mdc-flat-button.mat-primary:not([disabled]):hover {
   background-color: var(--primary-color-dark) !important;
   box-shadow: var(--box-shadow-sm) !important;
 }
 
-.mat-mdc-raised-button.mat-accent,
-.mat-mdc-flat-button.mat-accent {
+/* Styles for ENABLED accent buttons */
+.mat-mdc-raised-button.mat-accent:not([disabled]),
+.mat-mdc-flat-button.mat-accent:not([disabled]) {
   background-color: var(--accent-color) !important;
   color: var(--text-color-primary) !important;
 }
-.mat-mdc-raised-button.mat-accent:hover {
+
+.mat-mdc-raised-button.mat-accent:not([disabled]):hover,
+.mat-mdc-flat-button.mat-accent:not([disabled]):hover {
   background-color: #ffc107 !important; /* Darker yellow */
   box-shadow: var(--box-shadow-sm) !important;
 }
