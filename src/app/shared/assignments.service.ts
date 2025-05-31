@@ -9,11 +9,11 @@ import { dbAssignments } from './data';
   providedIn: 'root'
 })
 export class AssignmentsService {
-  //backendURL = 'http://localhost:8010/api/assignments';
-  backendURL = 'https://jawelbriki-assignmentsapi.onrender.com/api/assignments';
+  //private backendURL = 'http://localhost:8010/api/assignments';
+  private backendURL = 'https://jawelbriki-assignmentsapi.onrender.com/api/assignments';
 
-
-assignments:Assignment[] = [];
+  assignments:Assignment[] = [];
+  nextAssignmentID: number = 0;
 
   constructor(private http:HttpClient) { }
 
@@ -61,7 +61,7 @@ assignments:Assignment[] = [];
       assignment._id = a.id;
       assignment.author = a.author;
       assignment.subject = a.subject;
-      if (a.grade) assignment.grade = a.grade;
+      if (a.grade != null) assignment.grade = a.grade;
       assignment.nom = a.nom;
       assignment.dateDeRendu = new Date(a.dateDeRendu);
       assignment.rendu = a.rendu;
@@ -73,6 +73,14 @@ assignments:Assignment[] = [];
     // On renvoie un observable qui va nous permettre de savoir
     // quand toutes les insertions sont terminées
     return forkJoin(appelsVersAddAssignment);
+  }
+
+  setNewAssignmentID(id: number): void {
+    this.nextAssignmentID = id;
+  }
+
+  getNewAssignmentID(): number {
+    return this.nextAssignmentID;
   }
 
 }

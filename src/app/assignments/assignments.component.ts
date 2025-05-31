@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { Assignment } from './assignment.model';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
@@ -21,13 +22,13 @@ import { Router, RouterLink } from '@angular/router';
     MatListModule, MatDividerModule, MatButtonModule,
     MatInputModule,MatFormFieldModule,FormsModule,
     MatTableModule, MatPaginatorModule,
-    RouterLink],
+    RouterLink, MatIconModule],
   templateUrl: './assignments.component.html',
   styleUrl: './assignments.component.css'
 })
 
 export class AssignmentsComponent implements OnInit {
-  titre = 'Liste des assignments';
+  titre = 'List of assignments';
   assignments: Assignment[] = [];
 
   // Pour la pagination
@@ -41,11 +42,11 @@ export class AssignmentsComponent implements OnInit {
   prevPage!:number;
   nextPage!:number;
   // Pour la data table angular
-  displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
+  displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu', 'author', 'subject', 'grade', 'remarks'];
 
   // Attention, pour l'injection de service, mettre en private !!! Sinon
   // ça ne marche pas
-  constructor(private assignementsService: AssignmentsService,
+  constructor(private assignmentsService: AssignmentsService,
               private router: Router) {}
 
   ngOnInit() {
@@ -63,7 +64,7 @@ export class AssignmentsComponent implements OnInit {
   }
 
   getAssignments() {
-    this.assignementsService.getAssignmentsPagines(this.page, this.limit)
+    this.assignmentsService.getAssignmentsPagines(this.page, this.limit)
       .subscribe(data => {
         this.assignments = data.docs;
         this.page = data.page;
@@ -77,6 +78,7 @@ export class AssignmentsComponent implements OnInit {
         this.nextPage = data.nextPage;
 
         console.log("Données reçues dans le subscribe");
+        this.assignmentsService.setNewAssignmentID(this.totalDocs + 1);
       });
     console.log("APRES L'APPEL AU SERVICE");
   }
@@ -118,7 +120,7 @@ export class AssignmentsComponent implements OnInit {
     console.log(row);
     // On récupère l'id de l'assignment situé dans la colonne _id de la ligne
     // sélectionnée
-    let id = row._id;
+    let id = row.id;
     // et on utilise le routeur pour afficher le détail de l'assignment
     this.router.navigate(['/assignments', id]);
   }

@@ -67,6 +67,11 @@ export class AssignmentDetailComponent implements OnInit{
     });
   }
 
+  editAssignment(): void {
+    const id = this.route.snapshot.params['id'];
+    this.router.navigate(['assignments', id, 'edit']);
+  }
+
   assignmentRendu() {
     if(!this.assignmentTransmis) return;
 
