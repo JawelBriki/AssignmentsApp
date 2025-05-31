@@ -10,7 +10,7 @@ You do not need to install or deploy locally unless you wish to improve the appl
 ## Key elements
 - Full authentication management (login/register) with admin flag and hashed passwords on the cloud
 - Guest mode and user mode (a guest may browse the assignments but will be unable to interact, a user may submit but may not edit without admin permissions)
-- Clean design, easy to read and application easy to understand and use
+- Clean design, easy to read and application easy to understand and use. Style changes were largely taken from existing resources.
 
 ## Video Demonstration
 Coming soon
