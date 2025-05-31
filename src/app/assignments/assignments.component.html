@@ -1,38 +1,38 @@
 <h2>{{titre}}</h2>
 
-<h3>Ici en liste</h3>
-<p>Nombre total d'assignments dans la base : {{totalDocs}}</p>
+<h3>Details</h3>
+<p>Available assignments in the database: {{totalDocs}}</p>
 <p>
-    Nombre de documents par page : {{limit}}
+    Number of assignments per page: {{limit}}
     <input
             type="range" min="1" max="100" step="1" value=4
            [(ngModel)]="limit" (change)="getAssignments()"
     >
 </p>
-<p>Page courante : {{page}}</p>
-<p>Nombre total de pages : {{totalPages}}</p>
+<p>Current page: {{page}}</p>
+<p>Total number of pages: {{totalPages}}</p>
 <p>
     <button mat-flat-button
         color="primary"
         (click)="premierePage()">
-    PREMIERE
+    FIRST PAGE
     </button>
     <button mat-flat-button
             color="primary"
             [disabled]="page === 1"
             (click)="pagePrecedente()">
-     PAGE PRECEDENTE
+     PREVIOUS PAGE
     </button>
     <button mat-flat-button
             color="primary"
             [disabled]="page === totalPages"
             (click)="pageSuivante()">
-     PAGE SUIVANTE
+     NEXT PAGE
     </button>
     <button mat-flat-button
             color="primary"
             (click)="dernierePage()">
-     DERNIERE
+     LAST PAGE
     </button>
 </p>
 
@@ -47,18 +47,41 @@
           The actual rendered columns are set as a property on the row definition" -->
     <!-- Position Column -->
     <ng-container matColumnDef="nom">
-      <th mat-header-cell *matHeaderCellDef> Nom </th>
+      <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
     </ng-container>
 
     <ng-container matColumnDef="dateDeRendu">
-      <th mat-header-cell *matHeaderCellDef> Date de rendu </th>
+      <th mat-header-cell *matHeaderCellDef> Due Date </th>
       <td mat-cell *matCellDef="let element"> {{element.dateDeRendu|date:'dd/M/YYYY'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="rendu">
-      <th mat-header-cell *matHeaderCellDef> rendu </th>
-      <td mat-cell *matCellDef="let element"> {{element.rendu}} </td>
+      <th mat-header-cell *matHeaderCellDef> Submitted </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.rendu" class="rendu">check_circle</mat-icon>
+        <mat-icon *ngIf="!element.rendu" class="nonRendu">cancel</mat-icon>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="author">
+    <th mat-header-cell *matHeaderCellDef> Author </th>
+    <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="subject">
+    <th mat-header-cell *matHeaderCellDef> Subject </th>
+    <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="grade">
+    <th mat-header-cell *matHeaderCellDef> Grade </th>
+    <td mat-cell *matCellDef="let element"> {{element.grade != null ? element.grade + '/20' : ''}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="remarks">
+    <th mat-header-cell *matHeaderCellDef> Remarks </th>
+    <td mat-cell *matCellDef="let element"> {{element.remarks}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

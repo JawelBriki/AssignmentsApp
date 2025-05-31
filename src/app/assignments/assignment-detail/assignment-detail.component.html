@@ -2,8 +2,14 @@
     <mat-card appearance="outlined">
         <mat-card-header>
           <mat-card-title> {{assignmentTransmis.nom}}</mat-card-title>
-          <mat-card-subtitle>A rendre le : {{assignmentTransmis.dateDeRendu| date:"d/M/YY"}}</mat-card-subtitle>
+          <mat-card-subtitle>Due Date: {{assignmentTransmis.dateDeRendu | date:"d/M/YY"}}</mat-card-subtitle>
         </mat-card-header>
+        <mat-card-content>
+            <p><strong>Subject:</strong> {{assignmentTransmis.subject}}</p>
+            <p><strong>Author:</strong> {{assignmentTransmis.author}}</p>
+            <p><strong>Grade:</strong> {{assignmentTransmis.grade ? assignmentTransmis.grade : 'Not graded yet'}}</p>
+            <p><strong>Remarks:</strong> {{assignmentTransmis.remarks ? assignmentTransmis.remarks : 'No remarks'}}</p>
+        </mat-card-content>
         <mat-card-actions class="containerBoutons">
                 @if(!assignmentTransmis.rendu) {
                     <mat-checkbox [checked]="assignmentTransmis.rendu"
@@ -12,9 +18,8 @@
                     Rendu
                     </mat-checkbox>
                 }
-                <a routerLink="/assignments/{{assignmentTransmis._id}}/edit">
-                    <button mat-raised-button color="primary" [disabled]="!isAdmin()">EDIT</button>
-                </a>
+
+                    <button mat-raised-button color="primary" [disabled]="!isAdmin()" (click)="editAssignment()">EDIT</button>
 
                 <button mat-raised-button color="primary" [disabled]="!isAdmin()" (click)="onDeleteAssignment()">DELETE</button>
         </mat-card-actions>
