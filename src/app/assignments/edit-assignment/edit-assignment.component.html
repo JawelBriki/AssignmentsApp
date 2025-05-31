@@ -1,30 +1,46 @@
 @if(assignment) {
-    <div class="container">
-     <h1>Edition de l'assignment {{assignment.nom}}</h1>
-     <form ngForm class="form" 
-           #formupdate (submit)="onSaveAssignment(); formupdate.reset();"
-           class="form"
+    <div class="form-container">
+     <h1>Edit Assignment: {{assignment.nom}}</h1> <p>Status: {{ assignment.rendu ? 'Submitted' : 'Not submitted yet' }}</p> <form ngForm class="form"
+           #formupdate (submit)="onSaveAssignment();"
       >
        <mat-form-field>
-         <input matInput placeholder="Edition du nom" 
-                [(ngModel)]="nomAssignment" 
-                name="assignment-name"
-          >
-       </mat-form-field>
-       <mat-form-field>
-         <input matInput [matDatepicker]="picker" 
-                placeholder="Edition de la date" 
-                [(ngModel)]="dateDeRendu" 
+         <input matInput [matDatepicker]="picker"
+                placeholder="Edition de la date"
+                [(ngModel)]="dateDeRendu"
                 name="date"
+                required
           >
          <mat-datepicker-toggle matSuffix [for]="picker">
          </mat-datepicker-toggle>
          <mat-datepicker #picker></mat-datepicker>
        </mat-form-field>
-       <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">
-        Sauver
+
+       @if(assignment.rendu) {
+        <h3>Grade the assignment:</h3>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Note /20"
+                 [(ngModel)]="grade"
+                 name="grade"
+                 min="0"
+                 max="20"
+            >
+        </mat-form-field>
+
+        <mat-form-field>
+          <textarea matInput placeholder="Remarques"
+                    [(ngModel)]="remarks"
+                    name="remarks"
+            ></textarea>
+        </mat-form-field>
+       } @else {
+        <p><em>Grading will be available once the assignment has been marked as submitted.</em></p>
+       }
+
+       <button mat-raised-button color="primary" [disabled]="!dateDeRendu">
+        Save
       </button>
     </form>
    </div>
-   }
-       
+} @else {
+    <p>Loading...</p>
+}

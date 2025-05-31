@@ -8,63 +8,65 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
- selector: 'app-edit-assignment',
- standalone: true,
- providers: [provideNativeDateAdapter()],
- imports: [
-   FormsModule,
-   MatInputModule,
-   MatFormFieldModule,
-   MatDatepickerModule,
-   MatButtonModule,
- ],
- templateUrl: './edit-assignment.component.html',
- styleUrl: './edit-assignment.component.css',
+  selector: 'app-edit-assignment',
+  standalone: true,
+  providers: [provideNativeDateAdapter()],
+  imports: [
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    CommonModule,
+  ],
+  templateUrl: './edit-assignment.component.html',
+  styleUrls: ['./edit-assignment.component.css'],
 })
 export class EditAssignmentComponent implements OnInit {
   assignment: Assignment | undefined;
-  // Pour les champs de formulaire
-  nomAssignment = '';
   dateDeRendu?: Date = undefined;
- 
+  grade: number | null = null;
+  remarks: string = '';
+
   constructor(
     private assignmentsService: AssignmentsService,
     private router: Router,
-    private route:ActivatedRoute
+    private route: ActivatedRoute
   ) {}
- 
-  ngOnInit() {
-    // On va récupérer l'id dans la route (dans l'URL)
-    // on récupère l'assignment à modifier
-    const _id = this.route.snapshot.params['id'];
 
-    this.assignmentsService.getAssignment(_id)
-    .subscribe(a => {
+  ngOnInit() {
+    const _id = this.route.snapshot.params['id'];
+    this.assignmentsService.getAssignment(_id).subscribe((a) => {
       this.assignment = a;
       if (this.assignment) {
-        this.nomAssignment = this.assignment.nom;
         this.dateDeRendu = this.assignment.dateDeRendu;
+        if (this.assignment.rendu) {
+          this.grade = this.assignment.grade;
+          this.remarks = this.assignment.remarks || '';
+        }
       }
     });
   }
+
   onSaveAssignment() {
     if (!this.assignment) return;
-    if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
- 
-    // on récupère les valeurs dans le formulaire
-    this.assignment.nom = this.nomAssignment;
+    if (this.dateDeRendu === undefined) return;
+
     this.assignment.dateDeRendu = this.dateDeRendu;
+
+    if (this.assignment.rendu) {
+      this.assignment.grade = this.grade;
+      this.assignment.remarks = this.remarks;
+    }
+
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {
         console.log(message);
- 
-        // navigation vers la home page
         this.router.navigate(['/home']);
       });
   }
- }
- 
- 
+}
