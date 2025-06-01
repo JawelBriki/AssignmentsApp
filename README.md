@@ -12,8 +12,9 @@ You do not need to install or deploy locally unless you wish to improve the appl
 - Guest mode and user mode (a guest may browse the assignments but will be unable to interact, a user may submit but may not edit without admin permissions)
 - Clean design, easy to read and application easy to understand and use. Style changes were largely taken from existing resources.
 
-## Video Demonstration
-Coming soon
+## Admin Login (for testing purposes)
+Username: admin  
+Password: admin
 
 ## WARNING (PLEASE READ)
 Because this application runs on a free-tier cloud server, the instance may spin down with inactivity, leading to unresponsiveness both from the frontend or the backend (which can be experienced as unable to log in/register, or assignments not showing up).  
